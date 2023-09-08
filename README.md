@@ -2,6 +2,8 @@
 
 This is a 0 dependency package that exports a single, fast and synchronous function which computes a browser fingerprint, without requiring any permission to the user, designed to be used in NextJs. See the deployed example [here](https://fingerprint-browser-next-js.vercel.app/).
 
+![Browser Fingerprint](./img/signals.png)
+
 > Browser Fingerprinting React package with TypeScript and Rollup.
 
 Install from NPM: `npm install fingerprint-browser` or visit [npm's site](https://www.npmjs.com/package/fingerprint-browser). This repo contains the package code for the npm package `fingerprint-browser` in `packages/fingerprint-browser`, as well as an example of how to use it in a Next.js app in `example/fingerprint-browser-next-js`. Clone this repo down if you want to run the example while making changes to the package.
