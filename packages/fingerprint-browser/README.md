@@ -55,6 +55,12 @@ interface BrowserData {
 To avoid the hydration errors we ge when using checks like `typeof window !== 'undefined'` in the logic, to use the functions, use the following approach:
 
 ```TypeScript
+import { getBrowserFingerprint } from "fingerprint-browser";
+```
+
+and then:
+
+```TypeScript
   const [browserFingerprint, setBrowserFingerprint] = useState("");
   useEffect(() => {
     setBrowserFingerprint(fingerprintBrowser());
