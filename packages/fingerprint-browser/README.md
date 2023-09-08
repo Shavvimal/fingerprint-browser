@@ -1,18 +1,58 @@
 # Fingerprint Browser
 
+This is a 0 dependency package that exports a single, fast and synchronous function which computes a browser fingerprint, without requiring any permission to the user, designed to be used in NextJs.
+
 ## What is a Device Fingerprint?
 
-Identification of visitors crucial to most web sites, either to provide content or track miscreants. The most common mechanism to track users is a simple cookie file. As browsers have evolved many have made tracking with this method problematic (e.g. by activating the “incognito” mode in web browsers). Cookies also fail to identify a user who uses several different web browsers on the same device. This led to the development of the device fingerprint — a unique user identifier which does not change between successive sessions and which does not depend on the selected web browser.
+Many techniques are used when generating a highly accurate browser fingerprint, which gathers information about the user to distinguish them from millions of others online.
 
-A device fingerprint is known by many names including a machine fingerprint, browser fingerprint, device print, user fingerprint and others. It is composed of information collected about an online computing device for the purpose of unique identification of the device on subsequent visits. A device fingerprint can fully or partially identify individual users or devices even when cookies and other tracking data is turned off.
+Also known as online fingerprinting, browser fingerprinting is a tracking and identification method websites use to associate individual browsing sessions with one site visitor. Using Javascript, a plethora of data can be collected about a user’s web browser and device. When you stitch these pieces of information together, they reveal a unique combination of information that forms every user’s own ‘digital fingerprint.’’ The browser fingerprint is traceable across browsing sessions, even when the user enters incognito browsing or uses a VPN to access a site.
 
-Basic web browser information has long been collected by web analytics services in an effort to accurately measure real human web traffic and discount various forms of click fraud. With the assistance of client-side scripting languages, the collection of much more esoteric parameters is possible. Device fingerprints have proven useful in the detection and prevention of online identity theft and credit card fraud.
+Browser fingerprinting is one way to stop fraudsters from attempting to hack or spam website owners by accurately identifying site users. Browser fingerprinting is more difficult to circumvent than cookies, as a user’s fingerprint does not change between incognito browsing sessions or clearing browser data. A browser fingerprinting script must use various data (called signals) gathering techniques, which vary between visitors, to generate an accurate enough (called entropy) fingerprint for each distinct web visitor. For example, while many visitors to a website may have the same model of iPhone, the software and drivers installed, geolocation, browser and OS version, and even minute variances in the hardware could be different.Each browser fingerprinting technique can gather one or more of these signals that aim to identify these minor variances between users.
 
-The Darkwave Technologies device fingerprint project was created to develop highly reliable code to make it simpler for developers to create a device fingerprint system for use in online fraud prevention and the prevention of general malicious behavior.
+# What information is gathered?
 
-# To avoid Hydration Errors
+Browser fingerprinting can gather a lot of information from a browser: the user’s device model, its operating system, its browser version, user timezone, preferred language settings, ad blocker used, screen resolution, and all the granular tech specs of his CPU, graphics card, and so on.
 
-To avoid the hydration errors we ge when using checks like `typeof window !== 'undefined'` in the logic, use the following approach:
+The data this package uses is:
+
+```TypeScript
+interface BrowserData {
+  osString: string;
+  languages: readonly string[];
+  userAgent: string;
+  cookieEnabled: boolean;
+  doNotTrack: string | null;
+  hardwareConcurrency: number;
+  language: string;
+  maxTouchPoints: number;
+  pdfViewerEnabled: boolean;
+  webdriver: boolean;
+  width: number;
+  height: number;
+  colorDepth: number;
+  pixelDepth: number;
+  timezoneOffset: number;
+  timezone: string;
+  touchSupport: boolean;
+  devicePixelRatio: number;
+  orientation: string;
+  indexedDB: boolean;
+  hasLocalStorageBoolean: boolean;
+  hasSessionStorageBoolean: boolean;
+  isCanvasSupportedBoolean: boolean;
+  isIEBoolean: boolean;
+  canvasFingerprint: string;
+  connectionString: string | undefined;
+  cookieBoolean: boolean | undefined;
+  fontSmoothingEnabled: boolean | undefined;
+  fontsString: string;
+}
+```
+
+# How to use
+
+To avoid the hydration errors we ge when using checks like `typeof window !== 'undefined'` in the logic, to use the functions, use the following approach:
 
 ```TypeScript
   const [browserFingerprint, setBrowserFingerprint] = useState("");
@@ -23,64 +63,16 @@ To avoid the hydration errors we ge when using checks like `typeof window !== 'u
 
 hooks aren’t run when doing server-side rendering. Wrapping the usage of window inside a useEffect that is triggered on mount means the server will never execute it and the client will execute it after hydration.
 
-## Create a Typescript and React Module
+## Special Thanks
 
-- How to Create a Typescript and React Module: https://www.pluralsight.com/guides/react-typescript-module-create
-- https://medium.com/weekly-webtips/how-to-build-a-react-library-with-typescript-d0f08a1f517e
+Special thanks to:
 
-# Fingerprint TS
+- `Valentin Vasilyev` for the original fingerprintjs slightly modified
+- `@damianobarbati` for `get-browser-fingerprint` which provided some inspiration
+- `@N8Brooks` for the implementation of unsigned 32-bit MurmurHash3
+- Open Source Device Fingerprinting by Dark Wave Tech for the various identity functions
+- davealger on CodePen
 
-Based on get-browser-fingerprint by @damianobarbati
+## Contributing
 
-Zero dependencies package exporting a single, fast (<15ms) and synchronous function which computes a browser fingerprint, without requiring any permission to the user.
-
-This is a javascript only way to fingerprint a user with better than 90% accuracy in as few bytes as possible and no cookie storage!
-
-Special thanks to Valentin Vasilyev for the original fingerprintjs slightly modified and to Open Source Device Fingerprinting by Dark Wave Tech for the various identity functions
-
-Be careful: the strongest discriminating factor is canvas token which can't be computed on old devices (eg: iPhone 6), deal accordingly ⚠️
-
-Special thanks to Valentin Vasilyev for the original fingerprintjs slightly modified and to Open Source Device Fingerprinting by Dark Wave Tech for the various identity functions
-
-Refs:
-
-- https://github.com/damianobarbati/get-browser-fingerprint
-- https://codepen.io/run-time/pen/XJNXWV
-
-# get-browser-fingerprint
-
-Zero dependencies package exporting a single, fast (<15ms) and synchronous function which computes a browser fingerprint, without requiring any permission to the user.
-
-## Usage
-
-Get browser fingerprint:
-
-```js
-import getBrowserFingerprint from "get-browser-fingerprint";
-const fingerprint = getBrowserFingerprint();
-console.log(fingerprint);
-```
-
-Options available:
-
-- `hardwareOnly` (default `false`): leverage only hardware info about device
-- `enableWebgl` (default `false`): enable webgl renderer, ~4x times slower but adds another deadly powerful hardware detection layer on top of canvas
-- `debug`: log data used to generate fingerprint to console and add canvas/webgl canvas to body to see rendered image (default `false`)
-
-⚠️ Be careful: the strongest discriminating factor is canvas token which can't be computed on old devices (eg: iPhone 6), deal accordingly ⚠️
-
-## Development
-
-To test locally:
-
-```sh
-nvm install
-yarn install
-yarn test
-```
-
-To run example locally:
-
-```sh
-yarn http-server src -o -c-1 -p 80
-```
+Feel free to contribute.
