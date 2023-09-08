@@ -1,6 +1,6 @@
 {
   "name": "fingerprint-browser",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Computes a browser fingerprint",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
