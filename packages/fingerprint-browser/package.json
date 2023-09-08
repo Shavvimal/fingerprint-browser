@@ -1,6 +1,6 @@
 {
   "name": "fingerprint-browser",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Computes a browser fingerprint",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -22,7 +22,8 @@
     "fraud detection",
     "identification",
     "device fingerprint",
-    "privacy"
+    "privacy",
+    "NextJs"
   ],
   "author": "Shav Vimalendiran <shavgraphics@gmail.com>",
   "repository": {
