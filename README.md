@@ -1,6 +1,6 @@
 # Fingerprint Browser
 
-This is a 0 dependency package that exports a single, fast and synchronous function which computes a browser fingerprint, without requiring any permission to the user, designed to be used in NextJs.
+This is a 0 dependency package that exports a single, fast and synchronous function which computes a browser fingerprint, without requiring any permission to the user, designed to be used in NextJs. See the deployed example [here](https://fingerprint-browser-next-js.vercel.app/).
 
 > Browser Fingerprinting React package with TypeScript and Rollup.
 
@@ -66,6 +66,12 @@ interface BrowserData {
 # How to use
 
 To avoid the hydration errors we ge when using checks like `typeof window !== 'undefined'` in the logic, to use the functions, use the following approach:
+
+```TypeScript
+import { getBrowserFingerprint } from "fingerprint-browser";
+```
+
+and then:
 
 ```TypeScript
   const [browserFingerprint, setBrowserFingerprint] = useState("");
