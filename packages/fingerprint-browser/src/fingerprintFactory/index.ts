@@ -24,14 +24,14 @@ class FingerprintBrowser implements FingerprintInterface {
       fontsString: this.fonts(),
       // Navigator
       cookieEnabled: window.navigator.cookieEnabled,
-      doNotTrack: window.navigator.doNotTrack,
-      hardwareConcurrency: window.navigator.hardwareConcurrency,
+      doNotTrack: window.navigator.doNotTrack !== undefined ? window.navigator.doNotTrack : 'unknown',
+      hardwareConcurrency: window.navigator.hardwareConcurrency || 0,
       language: window.navigator.language,
-      languages: window.navigator.languages,
-      maxTouchPoints: window.navigator.maxTouchPoints,
+      languages:  window.navigator.languages || [window.navigator.language],
+      maxTouchPoints: window.navigator.maxTouchPoints || 0,
       userAgent: window.navigator.userAgent,
-      pdfViewerEnabled: window.navigator.pdfViewerEnabled,
-      webdriver: window.navigator.webdriver,
+      pdfViewerEnabled: window.navigator.pdfViewerEnabled !== undefined ? window.navigator.pdfViewerEnabled : false,
+      webdriver: window.navigator.webdriver !== undefined ? window.navigator.webdriver : false,
       // Screen
       width: window.screen.width,
       height: window.screen.height,
@@ -43,8 +43,8 @@ class FingerprintBrowser implements FingerprintInterface {
       // Touch
       touchSupport: "ontouchstart" in window,
       // Device
-      devicePixelRatio: window.devicePixelRatio,
-      orientation: screen.orientation.type,
+      devicePixelRatio: window.devicePixelRatio || 1,
+      orientation: screen.orientation ? screen.orientation.type : 'unknown',
       // IndexedDB
       indexedDB: !!window.indexedDB,
     };
